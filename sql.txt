@@ -1,0 +1,62 @@
+-- 1. Address Table
+CREATE TABLE address (
+    address_id BIGSERIAL PRIMARY KEY,
+    street_no VARCHAR(100) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    state VARCHAR(50) NOT NULL,
+    country VARCHAR(50) NOT NULL,
+    zipcode VARCHAR(20) NOT NULL
+);
+
+
+
+-- 2. Customer Table
+CREATE TABLE customer (
+    customer_id BIGSERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email_id VARCHAR(100) UNIQUE NOT NULL,
+    phone_no VARCHAR(20) NOT NULL,
+    address_id BIGINT REFERENCES address(address_id)
+);
+
+
+-- 3. Inventory Table (Handles vehicle attributes and dynamic pricing rules)
+CREATE TABLE inventory (
+    inventory_id BIGSERIAL PRIMARY KEY,
+    vehicle_type VARCHAR(20) UNIQUE NOT NULL, -- SEDAN, SUV, VAN, PICKUP_TRUCK
+    quantity INT NOT NULL CHECK (quantity >= 0),
+    base_price_under_10_days DECIMAL(10, 2) NOT NULL,
+    base_price_over_10_days DECIMAL(10, 2) NOT NULL,
+    license_check_required BOOLEAN DEFAULT TRUE,
+    price_per_mile DECIMAL(10, 2) DEFAULT 0.00,
+    version BIGINT NOT NULL DEFAULT 0 -- For Optimistic Locking (@Version)
+);
+
+
+
+
+-- 4. Reservation Table (Crucial for linking Customer to Inventory and managing state)
+CREATE TABLE reservation (
+    reservation_id VARCHAR(50) PRIMARY KEY,
+    customer_id BIGINT REFERENCES customer(customer_id),
+    vehicle_type VARCHAR(20) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    estimated_daily_mileage INT NOT NULL,
+    total_cost DECIMAL(10, 2) NOT NULL,
+    status VARCHAR(20) NOT NULL -- RESERVED, MODIFIED, CANCELLED
+);
+
+
+
+-- 5. Outbox Table (For guaranteed asynchronous processing)
+--    payload JSONB NOT NULL,              -- Full details including customer email
+CREATE TABLE outbox_event (
+    event_id UUID PRIMARY KEY,
+    aggregate_type VARCHAR(50) NOT NULL, -- 'RESERVATION'
+    aggregate_id VARCHAR(50) NOT NULL,    -- reservation_id
+    event_type VARCHAR(50) NOT NULL,     -- 'RESERVATION_CREATED', 'RESERVATION_CANCELLED'
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    processed BOOLEAN DEFAULT FALSE
+);
