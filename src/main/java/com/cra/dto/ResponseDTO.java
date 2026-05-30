@@ -1,10 +1,5 @@
 package com.cra.dto;
 
-
-
-
-
-   
 public class ResponseDTO {
 
 	    private String statusCode;

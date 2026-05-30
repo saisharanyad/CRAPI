@@ -17,78 +17,62 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cra.dto.ErrorResponseDTO;
 import com.cra.dto.ReservationRequestDTO;
 import com.cra.dto.ResponseDTO;
-import com.cra.dto.VehiclesRequestDTO;
-import com.cra.dto.VehiclesResponseDTO;
+import com.cra.dto.VehicleRequestDTO;
+import com.cra.dto.VehicleResponseDTO;
 import com.cra.constants.ReservationConstants;
 import jakarta.validation.Valid;
-
 
 @RestController
 @RequestMapping(path = "/api/reservation")
 public class ReservationController {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(ReservationController.class);
-	
-	
+
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponseDTO> addReservation(@Valid @RequestBody
-			ReservationRequestDTO reservationRequestDto) {
-		
-		//iBooksService.createBook(booksDto);
-		
-		return  ResponseEntity.
-				status(HttpStatus.CREATED).body(new ResponseDTO(ReservationConstants.STATUS_201,
-						ReservationConstants.MESSAGE_201));
+	public ResponseEntity<ResponseDTO> addReservation(@Valid @RequestBody ReservationRequestDTO reservationRequestDto) {
+
+		// iBooksService.createBook(booksDto);
+
+		return ResponseEntity.status(HttpStatus.CREATED)
+				.body(new ResponseDTO(ReservationConstants.STATUS_201, ReservationConstants.MESSAGE_201));
 	}
-	
-	
+
 	@PutMapping
-    public ResponseEntity<ResponseDTO> updateReservation(@RequestParam long bookId,
-    		@RequestParam String availabilityStatus) {
-		
-        boolean isUpdated = false;
-		//isUpdated = iBooksService.updateBookAvailabilityStatus(bookId,availabilityStatus);
-        if(isUpdated) {
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(new ResponseDTO(ReservationConstants.STATUS_200, ReservationConstants.MESSAGE_200));
-        }else{
-            return ResponseEntity
-                    .status(HttpStatus.EXPECTATION_FAILED)
-                    .body(new ResponseDTO(ReservationConstants.STATUS_500, ReservationConstants.MESSAGE_500_UPDATE));
-        }
-    }
-	
-	
+	public ResponseEntity<ResponseDTO> updateReservation(@RequestParam long bookId,
+			@RequestParam String availabilityStatus) {
+
+		boolean isUpdated = false;
+		// isUpdated =
+		// iBooksService.updateBookAvailabilityStatus(bookId,availabilityStatus);
+		if (isUpdated) {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ResponseDTO(ReservationConstants.STATUS_200, ReservationConstants.MESSAGE_200));
+		} else {
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+					.body(new ResponseDTO(ReservationConstants.STATUS_500, ReservationConstants.MESSAGE_500_UPDATE));
+		}
+	}
+
 	@DeleteMapping
-    public ResponseEntity<ResponseDTO> cancelReservation(@RequestParam
-                                                     long bookId) {
-        boolean isDeleted = false;
-        		//isDeleted = iBooksService.deleteBook(bookId);
-        if(isDeleted) {
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(new ResponseDTO(ReservationConstants.STATUS_200, ReservationConstants.MESSAGE_200));
-        }else{
-            return ResponseEntity
-                    .status(HttpStatus.EXPECTATION_FAILED)
-                    .body(new ResponseDTO(ReservationConstants.STATUS_500, ReservationConstants.MESSAGE_500_DELETE));
-        }
-    }
-	
-	
+	public ResponseEntity<ResponseDTO> cancelReservation(@RequestParam long bookId) {
+		boolean isDeleted = false;
+		// isDeleted = iBooksService.deleteBook(bookId);
+		if (isDeleted) {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new ResponseDTO(ReservationConstants.STATUS_200, ReservationConstants.MESSAGE_200));
+		} else {
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED)
+					.body(new ResponseDTO(ReservationConstants.STATUS_500, ReservationConstants.MESSAGE_500_DELETE));
+		}
+	}
+
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<VehiclesResponseDTO> getVehicleOptions(@Valid @RequestBody 
-    			VehiclesRequestDTO vehiclesRequestDTO 
-    		) {
-		
-		
-		return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(//iBooksService.searchBooks()
-                		);
-   
-       
-    }
-	
+	public ResponseEntity<VehicleResponseDTO> getVehicleOptions(
+			@Valid @RequestBody VehicleRequestDTO vehiclesRequestDTO) {
+
+		return ResponseEntity.status(HttpStatus.OK).body(// iBooksService.searchBooks()
+		);
+
+	}
+
 }
