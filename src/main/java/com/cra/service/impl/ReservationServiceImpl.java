@@ -1,7 +1,12 @@
 package com.cra.service.impl;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
+import com.cra.constants.ReservationStatus;
+import com.cra.entity.ReservationStatusCommEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,43 +55,52 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		//map address DTO to address entity[could use a mapper here]
 			AddressDTO addressDTO = reservationRequestDTO.getAddressDTO();
-						
+
 			AddressEntity addrEntity = new AddressEntity();
 			addrEntity.setStreetNo(addressDTO.getStreetNo());
 			addrEntity.setCity(addressDTO.getCity());
 			addrEntity.setState(addressDTO.getState());
 			addrEntity.setCountry(addressDTO.getCountry());
 			addrEntity.setZipcode(addressDTO.getZipcode());
-						
-		
+
+
 		//map customer DTO to customer entity and set in address entity
 			CustomerDTO customerDTO = reservationRequestDTO.getCustomerDTO();
-			
+
 			CustomerEntity customerEntity = new CustomerEntity();
 			customerEntity.setFirstName(customerDTO.getFirstName());
 			customerEntity.setLastName(customerDTO.getLastName());
 			customerEntity.setEmailId(customerDTO.getEmailId());
 			customerEntity.setPhoneNo(customerDTO.getPhoneNo());
 			customerEntity.setAddress(addrEntity);
-				
+
 		//save address entity
-			customerRepository.save(customerEntity);
+			CustomerEntity savedCustomer = customerRepository.save(customerEntity);
 		
-		//map vehiclerequest DTO to reservation entity and save
-			VehicleRequestDTO vehicleRequestDTO =  reservationRequestDTO.getVehicleRequestDTO();
-			
+		//insert vehicle request  to reservation entity and save
+
 			ReservationEntity reservationEntity = new ReservationEntity();
-			reservationEntity.setReservationId();
-			reservationEntity.setCustomerId();
-			reservationEntity.setVehicleType();
-			reservationEntity.setStartDate();
-			reservationEntity.setEndDate();
-			reservationEntity.setEstimatedDailyMileage();
-			reservationEntity.setTotalCost();
-			reservationEntity.setStatus();
+			reservationEntity.setCustomerId(savedCustomer.getCustomerId().toString());
+			reservationEntity.setVehicleType(reservationRequestDTO.getVehicleType());
+			reservationEntity.setStartDate(Timestamp.valueOf(reservationRequestDTO.getStartDate()));
+			reservationEntity.setEndDate(Timestamp.valueOf(reservationRequestDTO.getStartDate()));
+			reservationEntity.setEstimatedDailyMileage(reservationRequestDTO.getPerDayMileage());
+			reservationEntity.setTotalCost(reservationRequestDTO.getTotalCost());
+			reservationEntity.setStatus(ReservationStatus.RESERVED.toString());
+
+			ReservationEntity savedReservation = reservationRepository.save(reservationEntity);
 		
-		//set data in reservationstatuscomm entity and save 
-		
+		//set data in reservationstatuscomm entity and save
+		ReservationStatusCommEntity reservationStatusCommEntity = new ReservationStatusCommEntity();
+		reservationStatusCommEntity.setEventId(UUID.randomUUID());
+		reservationStatusCommEntity.setReservationId(savedReservation.getReservationId());
+		reservationStatusCommEntity.setReservationType(savedReservation.getStatus());
+		reservationStatusCommEntity.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+		reservationStatusCommEntity.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
+		reservationStatusCommEntity.setProcessed(false);
+		reservationStatusCommEntity.setEventType("COMMUNICATION_AWAIT");
+		reservationStatusRepository.save(reservationStatusCommEntity);
+
 	}
 
 	@Override
