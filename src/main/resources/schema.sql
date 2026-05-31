@@ -50,12 +50,12 @@ CREATE TABLE reservation (
 
 
 -- 5. Outbox Table (For guaranteed asynchronous processing)
---    payload JSONB NOT NULL,              -- Full details including customer email
 CREATE TABLE outbox_event (
     event_id UUID PRIMARY KEY,
     aggregate_type VARCHAR(50) NOT NULL, -- 'RESERVATION'
     aggregate_id VARCHAR(50) NOT NULL,    -- reservation_id
     event_type VARCHAR(50) NOT NULL,     -- 'RESERVATION_CREATED', 'RESERVATION_CANCELLED'
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     processed BOOLEAN DEFAULT FALSE
 );
