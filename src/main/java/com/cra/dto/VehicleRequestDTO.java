@@ -1,28 +1,33 @@
 package com.cra.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class VehicleRequestDTO {
 	
-	private Date startDate;
-	private Date endDate;
+	private LocalDateTime startDate;
+	private LocalDateTime endDate;
 	private String licenseNo;
 	private Integer perDayMileage;
 	private Date dateOfBirth;
-	
-	
-	public Date getStartDate() {
+
+
+	public LocalDateTime getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Date startDate) {
+
+	public void setStartDate(LocalDateTime startDate) {
 		this.startDate = startDate;
 	}
-	public Date getEndDate() {
+
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+
+	public void setEndDate(LocalDateTime endDate) {
 		this.endDate = endDate;
 	}
+
 	public String getLicenseNo() {
 		return licenseNo;
 	}
