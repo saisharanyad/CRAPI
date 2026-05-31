@@ -35,7 +35,7 @@ public class CustomerEntity {
     @OneToOne
     @JoinColumn(name="address_id",referencedColumnName="address_id")
     @Column(name="address_id")
-    private AddressEntity addressId;
+    private AddressEntity address;
     
     
     	public Long getCustomerId() {
@@ -81,22 +81,22 @@ public class CustomerEntity {
 		this.phoneNo = phoneNo;
 	}
 
-
-	public AddressEntity getAddressId() {
-		return addressId;
+	public AddressEntity getAddress() {
+		return address;
 	}
 
-
-	public void setAddressId(AddressEntity addressId) {
-		this.addressId = addressId;
+	public void setAddress(AddressEntity address) {
+		this.address = address;
 	}
-
 
 	@Override
 	public String toString() {
 		return "CustomerEntity [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", emailId=" + emailId + ", phoneNo=" + phoneNo + ", addressId=" + addressId + "]";
+				+ ", emailId=" + emailId + ", phoneNo=" + phoneNo + ", address=" + address + "]";
 	}
+
+	
+	
     
      
     

@@ -2,7 +2,7 @@ package com.cra.dto;
 
 public class AddressDTO {
 	
-	private String stNo;
+	private String streetNo;
 	private String city;
 	private String state;
 	private String country;
@@ -10,12 +10,13 @@ public class AddressDTO {
 	
 	
 	
-	public String getStNo() {
-		return stNo;
+	public String getStreetNo() {
+		return streetNo;
 	}
-	public void setStNo(String stNo) {
-		this.stNo = stNo;
+	public void setStreetNo(String streetNo) {
+		this.streetNo = streetNo;
 	}
+	
 	public String getCity() {
 		return city;
 	}

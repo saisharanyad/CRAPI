@@ -5,7 +5,7 @@ public class CustomerDTO {
 	private String firstName;
 	private String lastName;
 	private String emailId;
-	private String phnNo;
+	private String phoneNo;
 	
 	
 	public String getFirstName() {
@@ -26,12 +26,13 @@ public class CustomerDTO {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	public String getPhnNo() {
-		return phnNo;
+	public String getPhoneNo() {
+		return phoneNo;
 	}
-	public void setPhnNo(String phnNo) {
-		this.phnNo = phnNo;
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
 	}
+	
 	
 	
 	

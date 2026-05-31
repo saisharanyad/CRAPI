@@ -19,19 +19,23 @@ import com.cra.dto.ReservationRequestDTO;
 import com.cra.dto.ResponseDTO;
 import com.cra.dto.VehicleRequestDTO;
 import com.cra.dto.VehicleResponseDTO;
+import com.cra.service.ReservationService;
 import com.cra.constants.ReservationConstants;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/api/reservation")
 public class ReservationController {
-
+	
 	private static final Logger log = LoggerFactory.getLogger(ReservationController.class);
+	
+	private ReservationService reservationService;
 
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponseDTO> addReservation(@Valid @RequestBody ReservationRequestDTO reservationRequestDto) {
+	public ResponseEntity<ResponseDTO> 
+		addReservation(@Valid @RequestBody ReservationRequestDTO reservationRequestDto) {
 
-		// iBooksService.createBook(booksDto);
+		reservationService.reserveCar(reservationRequestDto);
 
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(new ResponseDTO(ReservationConstants.STATUS_201, ReservationConstants.MESSAGE_201));
@@ -70,7 +74,8 @@ public class ReservationController {
 	public ResponseEntity<VehicleResponseDTO> getVehicleOptions(
 			@Valid @RequestBody VehicleRequestDTO vehiclesRequestDTO) {
 
-		return ResponseEntity.status(HttpStatus.OK).body(// iBooksService.searchBooks()
+		return ResponseEntity.status(HttpStatus.OK).body(
+				// iBooksService.searchBooks()
 		);
 
 	}
