@@ -13,19 +13,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-@Table(name="inventory")
+@Table(name="reservation")
 @Entity
 public class ReservationEntity {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.UUID)
 	@Column(name="reservation_id")
     private String reservationId;
 
 	@OneToOne
 	@JoinColumn(name="customer_id",referencedColumnName="customer_id")
-    @Column(name="customer_id")
-    private String customerId;
+    private CustomerEntity customer;
 
     @Column(name="vehicle_type")
     private String vehicleType;
@@ -44,6 +43,13 @@ public class ReservationEntity {
     
     @Column(name="status")
     private String status;
+    
+    @Column(name="created_at")
+    private Timestamp createdAt;
+    
+    @Column(name="updated_at")
+    private Timestamp updatedAt;
+    
 
 	public String getReservationId() {
 		return reservationId;
@@ -53,12 +59,13 @@ public class ReservationEntity {
 		this.reservationId = reservationId;
 	}
 
-	public String getCustomerId() {
-		return customerId;
+
+	public CustomerEntity getCustomer() {
+		return customer;
 	}
 
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
+	public void setCustomer(CustomerEntity customer) {
+		this.customer = customer;
 	}
 
 	public String getVehicleType() {
@@ -108,14 +115,38 @@ public class ReservationEntity {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	
+
+	public Timestamp getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Timestamp createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
 	@Override
 	public String toString() {
-		return "ReservationEntity [reservationId=" + reservationId + ", customerId=" + customerId + ", vehicleType="
+		return "ReservationEntity [reservationId=" + reservationId + ", customer=" + customer + ", vehicleType="
 				+ vehicleType + ", startDate=" + startDate + ", endDate=" + endDate + ", estimatedDailyMileage="
-				+ estimatedDailyMileage + ", totalCost=" + totalCost + ", status=" + status + "]";
+				+ estimatedDailyMileage + ", totalCost=" + totalCost + ", status=" + status + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + "]";
 	}
 
+
+	
+	
+
+	
     
       
     

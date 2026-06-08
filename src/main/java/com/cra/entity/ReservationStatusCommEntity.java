@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 public class ReservationStatusCommEntity {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.UUID)
 	@Column(name="event_id")
     private UUID eventId;
 	
@@ -24,13 +24,16 @@ public class ReservationStatusCommEntity {
     private String reservationType;
 	
 	@Column(name="aggregate_id")
-	private String resrevationId;
+	private String reservationId;
 
     @Column(name="event_type")
     private String eventType;
 
     @Column(name="created_at")
     private Timestamp createdAt;
+    
+    @Column(name="updated_at")
+    private Timestamp updatedAt;
 
     @Column(name="processed")
     private Boolean processed;
@@ -51,12 +54,14 @@ public class ReservationStatusCommEntity {
 		this.reservationType = reservationType;
 	}
 
-	public String getResrevationId() {
-		return resrevationId;
+	
+
+	public String getReservationId() {
+		return reservationId;
 	}
 
-	public void setResrevationId(String resrevationId) {
-		this.resrevationId = resrevationId;
+	public void setReservationId(String reservationId) {
+		this.reservationId = reservationId;
 	}
 
 	public String getEventType() {
@@ -75,6 +80,15 @@ public class ReservationStatusCommEntity {
 		this.createdAt = createdAt;
 	}
 
+	
+	public Timestamp getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Timestamp updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
 	public Boolean getProcessed() {
 		return processed;
 	}
@@ -83,12 +97,7 @@ public class ReservationStatusCommEntity {
 		this.processed = processed;
 	}
 
-	@Override
-	public String toString() {
-		return "ReservationStatusCommEntity [eventId=" + eventId + ", reservationType=" + reservationType
-				+ ", resrevationId=" + resrevationId + ", eventType=" + eventType + ", createdAt=" + createdAt
-				+ ", processed=" + processed + "]";
-	}
+	
     
        
     

@@ -9,7 +9,6 @@ CREATE TABLE address (
 );
 
 
-
 -- 2. Customer Table
 CREATE TABLE customer (
     customer_id BIGSERIAL PRIMARY KEY,
@@ -30,7 +29,9 @@ CREATE TABLE inventory (
     base_price_over_10_days DECIMAL(10, 2) NOT NULL,
     license_check_required BOOLEAN DEFAULT TRUE,
     price_per_mile DECIMAL(10, 2) DEFAULT 0.00,
-    version BIGINT NOT NULL DEFAULT 0 -- For Optimistic Locking (@Version)
+    version BIGINT NOT NULL DEFAULT 0, -- For Optimistic Locking (@Version)
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -45,18 +46,22 @@ CREATE TABLE reservation (
     end_date DATE NOT NULL,
     estimated_daily_mileage INT NOT NULL,
     total_cost DECIMAL(10, 2) NOT NULL,
-    status VARCHAR(20) NOT NULL -- RESERVED, MODIFIED, CANCELLED
+    status VARCHAR(20) NOT NULL, -- RESERVED, MODIFIED, CANCELLED
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    
 );
 
 
 
 -- 5. Outbox Table (For guaranteed asynchronous processing)
---    payload JSONB NOT NULL,              -- Full details including customer email
 CREATE TABLE outbox_event (
     event_id UUID PRIMARY KEY,
     aggregate_type VARCHAR(50) NOT NULL, -- 'RESERVATION'
     aggregate_id VARCHAR(50) NOT NULL,    -- reservation_id
     event_type VARCHAR(50) NOT NULL,     -- 'RESERVATION_CREATED', 'RESERVATION_CANCELLED'
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     processed BOOLEAN DEFAULT FALSE
 );

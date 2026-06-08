@@ -29,7 +29,10 @@ CREATE TABLE inventory (
     base_price_over_10_days DECIMAL(10, 2) NOT NULL,
     license_check_required BOOLEAN DEFAULT TRUE,
     price_per_mile DECIMAL(10, 2) DEFAULT 0.00,
-    version BIGINT NOT NULL DEFAULT 0 -- For Optimistic Locking (@Version)
+    cleaning_fees DECIMAL(10, 2) DEFAULT 0.00,
+    version BIGINT NOT NULL DEFAULT 0, -- For Optimistic Locking (@Version)
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -44,7 +47,11 @@ CREATE TABLE reservation (
     end_date DATE NOT NULL,
     estimated_daily_mileage INT NOT NULL,
     total_cost DECIMAL(10, 2) NOT NULL,
-    status VARCHAR(20) NOT NULL -- RESERVED, MODIFIED, CANCELLED
+    status VARCHAR(20) NOT NULL, -- RESERVED, MODIFIED, CANCELLED
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    
 );
 
 

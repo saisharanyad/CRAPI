@@ -1,145 +1,98 @@
-package com.cra.entity;
-
+package com.cra.dto;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
-@Table(name="inventory")
-@Entity
-public class InventoryEntity {
-
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="inventory_id")
-    private Long inventoryId;
-
-    @Column(name="vehicle_type")
-    private String vehicleType;
-
-    @Column(name="quantity")
-    private Long quantity;
-    
-    @Column(name="base_price_under_10_days")
+public class InventoryDTO {
+	
+	private String vehicleType;
+	private Long quantity;
     private BigDecimal basePriceTenDaysUnder;
-    
-    @Column(name="base_price_over_10_days")
     private BigDecimal basePriceTenDaysOver;
-    
-    @Column(name="license_check_required")
     private Boolean licenseCheckRequired;
-    
-    @Column(name="price_per_mile")
     private BigDecimal pricePerMile;
-    
-    @Column(name="version")
-    private Long version;
-    
-    @Column(name="created_at")
+    private Long version;  
     private Timestamp createdAt;
-    
-    @Column(name="updated_at")
     private Timestamp updatedAt;
-
-	public Long getInventoryId() {
-		return inventoryId;
-	}
-
-	public void setInventoryId(Long inventoryId) {
-		this.inventoryId = inventoryId;
-	}
-
+    
+    
+    public InventoryDTO(String vehicleType,Long quantity,
+    		BigDecimal basePriceTenDaysUnder,
+     BigDecimal basePriceTenDaysOver,
+     Boolean licenseCheckRequired,
+     BigDecimal pricePerMile,
+     Long version, 
+     Timestamp createdAt,
+     Timestamp updatedAt 
+     ) {
+    		this.vehicleType = vehicleType;
+    		this.quantity = quantity;
+    		this.basePriceTenDaysUnder = basePriceTenDaysUnder;
+    		this.basePriceTenDaysOver = basePriceTenDaysOver;
+    		this.licenseCheckRequired = licenseCheckRequired;
+    		this.pricePerMile = pricePerMile;
+    		this.version = version;
+    		this.createdAt = createdAt;
+    		this.updatedAt = updatedAt;
+    }
 	public String getVehicleType() {
 		return vehicleType;
 	}
-
 	public void setVehicleType(String vehicleType) {
 		this.vehicleType = vehicleType;
 	}
-
 	public Long getQuantity() {
 		return quantity;
 	}
-
 	public void setQuantity(Long quantity) {
 		this.quantity = quantity;
 	}
-
 	public BigDecimal getBasePriceTenDaysUnder() {
 		return basePriceTenDaysUnder;
 	}
-
 	public void setBasePriceTenDaysUnder(BigDecimal basePriceTenDaysUnder) {
 		this.basePriceTenDaysUnder = basePriceTenDaysUnder;
 	}
-
 	public BigDecimal getBasePriceTenDaysOver() {
 		return basePriceTenDaysOver;
 	}
-
 	public void setBasePriceTenDaysOver(BigDecimal basePriceTenDaysOver) {
 		this.basePriceTenDaysOver = basePriceTenDaysOver;
 	}
-
 	public Boolean getLicenseCheckRequired() {
 		return licenseCheckRequired;
 	}
-
 	public void setLicenseCheckRequired(Boolean licenseCheckRequired) {
 		this.licenseCheckRequired = licenseCheckRequired;
 	}
-
 	public BigDecimal getPricePerMile() {
 		return pricePerMile;
 	}
-
 	public void setPricePerMile(BigDecimal pricePerMile) {
 		this.pricePerMile = pricePerMile;
 	}
-
 	public Long getVersion() {
 		return version;
 	}
-
 	public void setVersion(Long version) {
 		this.version = version;
 	}
-	
-	
-
 	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
-
 	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
-
 	public Timestamp getUpdatedAt() {
 		return updatedAt;
 	}
-
 	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+    
+    
+    
 
-	@Override
-	public String toString() {
-		return "InventoryEntity [inventoryId=" + inventoryId + ", vehicleType=" + vehicleType + ", quantity=" + quantity
-				+ ", basePriceTenDaysUnder=" + basePriceTenDaysUnder + ", basePriceTenDaysOver=" + basePriceTenDaysOver
-				+ ", licenseCheckRequired=" + licenseCheckRequired + ", pricePerMile=" + pricePerMile + ", version="
-				+ version + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
-	}
-
-	
-    
-    
-    
-    
 }

@@ -2,6 +2,7 @@ package com.cra.entity;
 
 
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,9 +33,8 @@ public class CustomerEntity {
     @Column(name="phone_no")
     private String phoneNo;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="address_id",referencedColumnName="address_id")
-    @Column(name="address_id")
     private AddressEntity address;
     
     

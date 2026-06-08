@@ -1,7 +1,5 @@
 package com.cra.constants;
 
 public enum ReservationStatus {
-	
-	RESERVED,CANCELLED,MODIFIED
-
+	RESERVED,MODIFIED,CANCELLED,COMPLETED;
 }

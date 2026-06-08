@@ -3,17 +3,23 @@ package com.cra.dto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ReservationRequestDTO {
 		
 		private AddressDTO addressDTO;
 		private CustomerDTO customerDTO;
+		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm:ss")
 		private LocalDateTime startDate;
+		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm:ss")
 		private LocalDateTime endDate;
 		private String licenseNo;
 		private Integer perDayMileage;
-		private Date dateOfBirth;
+		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm:ss")
+		private LocalDateTime dateOfBirth;
 		private String vehicleType;
 		private BigDecimal totalCost;
 		
@@ -70,14 +76,13 @@ public class ReservationRequestDTO {
 			this.perDayMileage = perDayMileage;
 		}
 
-		public Date getDateOfBirth() {
+
+		public LocalDateTime getDateOfBirth() {
 			return dateOfBirth;
 		}
-
-		public void setDateOfBirth(Date dateOfBirth) {
+		public void setDateOfBirth(LocalDateTime dateOfBirth) {
 			this.dateOfBirth = dateOfBirth;
 		}
-
 		public BigDecimal getTotalCost() {
 			return totalCost;
 		}
@@ -85,4 +90,6 @@ public class ReservationRequestDTO {
 		public void setTotalCost(BigDecimal totalCost) {
 			this.totalCost = totalCost;
 		}
+		
+		
 }

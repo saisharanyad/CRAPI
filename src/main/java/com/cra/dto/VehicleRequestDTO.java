@@ -1,15 +1,22 @@
 package com.cra.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class VehicleRequestDTO {
 	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm:ss")
 	private LocalDateTime startDate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm:ss")
 	private LocalDateTime endDate;
 	private String licenseNo;
 	private Integer perDayMileage;
-	private Date dateOfBirth;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM-dd-yyyy HH:mm:ss")
+	private LocalDateTime dateOfBirth;
 
 
 	public LocalDateTime getStartDate() {
@@ -40,14 +47,16 @@ public class VehicleRequestDTO {
 	public void setPerDayMileage(Integer perDayMileage) {
 		this.perDayMileage = perDayMileage;
 	}
-	public Date getDateOfBirth() {
+	public LocalDateTime getDateOfBirth() {
 		return dateOfBirth;
 	}
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDateTime dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 	
-	
+	public long getDurationInDays() {
+        return ChronoUnit.DAYS.between(startDate, endDate);
+    }
 	
 	
 }

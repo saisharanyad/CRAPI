@@ -9,8 +9,8 @@ import com.cra.dto.VehicleResponseDTO;
 public interface ReservationService {
 	
 	    void reserveCar(ReservationRequestDTO reservationRequestDTO);
-	    void modifyReservation(String reservationId, 
+	    boolean modifyReservation(Long reservationId,
 	    		ReservationRequestDTO reservationRequestDTO);
-	    void cancelReservation(String reservationId);
+	    boolean cancelReservation(String reservationId);
 	    List<VehicleResponseDTO> getOptions(VehicleRequestDTO vehiclesRequestDTO);
 }
